@@ -11,6 +11,7 @@ export default defineConfig({
          { find: "@api", replacement: "/src/api" },
          { find: "@types", replacement: "/src/types" },
          { find: "@utils", replacement: "/src/utils/*" },
+         { find: "@components", replacement: "/src/components" },
       ],
    },
 });

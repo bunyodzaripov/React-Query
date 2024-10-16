@@ -6,11 +6,14 @@ import {
    LogoutOutlined,
 } from "@ant-design/icons";
 import { paths } from "../../router/routes";
-import { NavLink, useLocation, Outlet } from "react-router-dom";
+import { NavLink, useLocation, Outlet, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo-ark.svg";
+import { Popconfirm } from "@components";
+import { removeAccessToken } from "../../utils/token-service";
 const { Header, Sider, Content } = Layout;
 
 const Index = () => {
+   const navigate = useNavigate();
    const [collapsed, setCollapsed] = useState(false);
    const { pathname } = useLocation();
    const {
@@ -76,16 +79,28 @@ const Index = () => {
                   }}
                />
 
-               <Button
-                  type="text"
-                  icon={<LogoutOutlined />}
-                  style={{
-                     fontSize: "16px",
-                     width: 64,
-                     height: 64,
-                     color: "#fff",
+               <Popconfirm
+                  title="Logout"
+                  description="Are you sure to logout?"
+                  okText="Yes"
+                  cancelText="No"
+                  onConfirm={() => {
+                     removeAccessToken();
+                     navigate("/");
                   }}
-               />
+                  placement="leftBottom"
+               >
+                  <Button
+                     type="text"
+                     icon={<LogoutOutlined />}
+                     style={{
+                        fontSize: "16px",
+                        width: 64,
+                        height: 64,
+                        color: "#fff",
+                     }}
+                  />
+               </Popconfirm>
             </Header>
             <Content
                style={{

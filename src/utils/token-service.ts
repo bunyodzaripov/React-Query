@@ -6,4 +6,5 @@ export const getAccessToken = () => {
 };
 export const removeAccessToken = () => {
    localStorage.removeItem("access_token");
+   localStorage.removeItem("userId");
 };
