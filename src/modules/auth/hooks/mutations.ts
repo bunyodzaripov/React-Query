@@ -10,7 +10,7 @@ export function useSignInMutation() {
       onSuccess: (res) => {
          const { access_token } = res.data?.data?.tokens;
          saveAccessToken(access_token);
-         window.location.href = "/";
+         window.location.href = "layout";
       },
       onError: (err) => {
          console.log(err);
@@ -25,7 +25,7 @@ export function useSignUpMutation() {
       onSuccess: (res) => {
          const { access_token } = res.data?.data?.tokens;
          saveAccessToken(access_token);
-         window.location.href = "/";
+         window.location.href = "/layout";
       },
       onError: (err) => {
          console.log(err);
