@@ -9,7 +9,8 @@
          "@": ["./src/*"],
          "@modules": ["./src/modules"],
          "@api": ["./src/api"],
-         "@types": ["./src/types"]
+         "@types": ["./src/types"],
+         "@utils": ["./src/utils/*"]
       },
 
       /* Bundler mode */
