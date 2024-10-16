@@ -1,12 +1,11 @@
 import { Button, Form, Input } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSignInMutation } from "../../auth/hooks/mutations";
 import SignInImg from "../../../assets/sign-in.jpg";
 import { SignInType } from "../types";
 
 const SignIn = () => {
    const { mutate } = useSignInMutation();
-   const navigate = useNavigate();
 
    const handleSubmit = (values: SignInType) => {
       mutate(values);
