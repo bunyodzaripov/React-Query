@@ -7,7 +7,6 @@ const Index = ({ data, pagination, onChange, columns }: any) => {
          dataSource={data}
          pagination={pagination}
          onChange={(pagination) => onChange(pagination)}
-         rowKey={(record) => record.id || `${record.name}_${Math.random()}`}
          bordered
       />
    );
