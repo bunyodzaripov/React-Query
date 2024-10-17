@@ -10,3 +10,11 @@ export interface ModalPropType {
    update: any;
    handleCancel: () => void;
 }
+
+export interface ModalProps {
+   parentId?: number;
+   open: boolean;
+   setOpen?: (open: boolean) => void;
+   handleClose: () => void;
+   update?: any;
+}

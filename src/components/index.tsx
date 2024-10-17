@@ -1,3 +1,5 @@
 import Table from "./table";
 import Popconfirm from "./popconfirm";
-export { Table, Popconfirm };
+import Search from "./search";
+
+export { Table, Popconfirm, Search };

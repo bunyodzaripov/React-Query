@@ -4,10 +4,13 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetCategory } from "../hooks/queries";
 import { useDeleteCategory } from "../hooks/mutations";
-import { Popconfirm, Table } from "@components";
+import { Popconfirm, Table, Search } from "@components";
 import { RecordType, PaginationType } from "../types";
+import Modal from "./modal";
 
 const index = () => {
+   const [open, setOpen] = useState(false);
+   const [update, setUpdate] = useState({} as RecordType);
    const [params, setParams] = useState({
       page: 1,
       limit: 5,
@@ -32,11 +35,19 @@ const index = () => {
    const { mutate: deleteCategory } = useDeleteCategory();
    const navigate = useNavigate();
 
+   const openModal = () => {
+      setOpen(true);
+   };
+   const handleClose = () => {
+      setOpen(false);
+      setUpdate({} as RecordType);
+   };
    const deleteData = (id: number) => {
       deleteCategory(id);
    };
    const editData = (data: RecordType) => {
-      console.log(data);
+      setUpdate(data);
+      openModal();
    };
    const handleTableChange = (pagination: PaginationType) => {
       const { current, pageSize } = pagination;
@@ -49,6 +60,12 @@ const index = () => {
       current_params.set("page", `${current}`);
       current_params.set("limit", `${pageSize}`);
       navigate(`?${current_params}`);
+   };
+   const handleSearch = (value: string) => {
+      setParams((prev) => ({
+         ...prev,
+         search: value,
+      }));
    };
 
    const columns = [
@@ -98,6 +115,21 @@ const index = () => {
    ];
    return (
       <>
+         <Modal open={open} handleClose={handleClose} update={update} />
+         <div className="flex justify-between mb-10">
+            <Search
+               placeholder="Search category..."
+               searchParamKey="search"
+               onSearch={handleSearch}
+            />
+            <Button
+               type="primary"
+               onClick={openModal}
+               className="rounded-lg px-4 py-5"
+            >
+               <span className="ml-2">Add Category</span>
+            </Button>
+         </div>
          <Table
             data={data?.data?.data.categories || []}
             columns={columns}
