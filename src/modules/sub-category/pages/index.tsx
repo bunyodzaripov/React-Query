@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button, Tooltip } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useGetCategory } from "../hooks/queries";
-import { useDeleteCategory } from "../hooks/mutations";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useGetSubCategory } from "../hooks/queries";
+import { useDeleteSubCategory } from "../hooks/mutations";
 import { Popconfirm, Table, Search } from "@components";
 import { RecordType } from "../types";
 import { PaginationType } from "@types";
-import Modal from "./modal";
+// import Modal from "./modal";
 
 const index = () => {
    const [open, setOpen] = useState(false);
@@ -18,6 +18,7 @@ const index = () => {
       search: "",
    });
    const { search } = useLocation();
+   const { id } = useParams();
 
    useEffect(() => {
       const params = new URLSearchParams(search);
@@ -32,8 +33,8 @@ const index = () => {
       }));
    }, [search]);
 
-   const { data } = useGetCategory(params);
-   const { mutate: deleteCategory } = useDeleteCategory();
+   const { data } = useGetSubCategory(id, params);
+   const { mutate: deleteSubCategory } = useDeleteSubCategory();
    const navigate = useNavigate();
 
    const openModal = () => {
@@ -44,7 +45,7 @@ const index = () => {
       setUpdate({} as RecordType);
    };
    const deleteData = (id: number) => {
-      deleteCategory(id);
+      deleteSubCategory(id);
    };
    const editData = (data: RecordType) => {
       setUpdate(data);
@@ -81,10 +82,6 @@ const index = () => {
          title: "Name",
          dataIndex: "name",
          key: "name",
-         onCell: (record: RecordType) => ({
-            onClick: () => navigate(`/layout/category/${record.id}`),
-            style: { cursor: "pointer" },
-         }),
       },
       {
          title: "Action",
@@ -93,8 +90,8 @@ const index = () => {
          render: (_: string, record: RecordType) => (
             <div className="flex gap-6">
                <Popconfirm
-                  title="Delete category?"
-                  description="Are you sure to delete this category?"
+                  title="Delete Subcategory?"
+                  description="Are you sure to delete this Subcategory?"
                   okText="Yes"
                   cancelText="No"
                   onConfirm={() => deleteData(record.id)}
@@ -116,10 +113,10 @@ const index = () => {
    ];
    return (
       <>
-         <Modal open={open} handleClose={handleClose} update={update} />
+         {/* <Modal open={open} handleClose={handleClose} update={update} /> */}
          <div className="flex justify-between mb-10">
             <Search
-               placeholder="Search category..."
+               placeholder="Search Subcategory..."
                searchParamKey="search"
                onSearch={handleSearch}
             />
@@ -128,11 +125,11 @@ const index = () => {
                onClick={openModal}
                className="rounded-lg px-4 py-5"
             >
-               <span className="ml-2">Add Category</span>
+               <span className="ml-2">Add Sub Category</span>
             </Button>
          </div>
          <Table
-            data={data?.data?.data.categories || []}
+            data={data?.data?.data.subcategories || []}
             columns={columns}
             pagination={{
                current: params.page,

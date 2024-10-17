@@ -18,3 +18,11 @@ export interface ModalProps {
    handleClose: () => void;
    update?: any;
 }
+
+export interface PaginationType {
+   current: number;
+   pageSize: number;
+   total: undefined;
+   showSizeChanger: boolean;
+   pageSizeOptions: number[];
+}
