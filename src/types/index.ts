@@ -5,13 +5,14 @@ export interface ParamsType {
 }
 
 export interface ModalPropType {
-   id?: number;
+   id?: number | undefined;
    open: boolean;
    update: any;
    handleCancel: () => void;
 }
 
 export interface ModalProps {
+   id?: number | undefined;
    parentId?: number;
    open: boolean;
    setOpen?: (open: boolean) => void;

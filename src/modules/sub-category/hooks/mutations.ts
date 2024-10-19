@@ -31,8 +31,8 @@ export function useCreateSubCategory() {
    });
 }
 
-//////////////////////// UPDATE CATEGORY //////////////////////////////
-export function useUpdateCategory() {
+//////////////////////// UPDATE SUBCATEGORY //////////////////////////////
+export function useUpdateSubCategory() {
    const queryClient = useQueryClient();
    return useMutation({
       mutationFn: (data: SubCategoryType) => updateSubCategory(data),
@@ -50,7 +50,7 @@ export function useUpdateCategory() {
             });
          } else {
             await queryClient.invalidateQueries({
-               queryKey: ["category", { id: variables.id }],
+               queryKey: ["subCategory", { id: variables.id }],
             });
          }
       },

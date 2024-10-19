@@ -20,6 +20,7 @@ export const createSubCategory = async (data: SubCategoryType) => {
 ////////////////////////////// UPDATE SUBCATEGORY //////////////////////////////
 export const updateSubCategory = async (data: SubCategoryType) => {
    const { id } = data;
+
    delete (data as any).id;
    const res = await axiosInstance.patch(`sub-category/update/${id}`, data);
    return res?.data;
