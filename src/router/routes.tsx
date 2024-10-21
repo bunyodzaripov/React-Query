@@ -2,6 +2,7 @@ import {
    AppstoreOutlined,
    ProductOutlined,
    TagOutlined,
+   TagsOutlined,
 } from "@ant-design/icons";
 
 const paths = [
@@ -19,6 +20,11 @@ const paths = [
       content: "Brands",
       path: "/layout/brands",
       icon: <TagOutlined />,
+   },
+   {
+      content: "Brand Category",
+      path: "/layout/brand-category",
+      icon: <TagsOutlined />,
    },
 ];
 
