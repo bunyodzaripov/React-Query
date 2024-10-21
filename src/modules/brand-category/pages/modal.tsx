@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { Button, Modal, Form, Input, Select } from "antd";
 import { ModalProps } from "@types";
 import { BrandCategoryType } from "../types";
+import {
+   useCreateBrandCategory,
+   useUpdateBrandCategory,
+} from "../hooks/mutations";
 
 const Index = ({ open, handleClose, update, brandsData }: ModalProps) => {
    const [form] = Form.useForm();
@@ -17,8 +21,28 @@ const Index = ({ open, handleClose, update, brandsData }: ModalProps) => {
       }
    }, [update, form]);
 
+   const { mutate: createBrandCategory } = useCreateBrandCategory();
+   const { mutate: updateBrandCategory } = useUpdateBrandCategory();
+
    const handleSubmit = async (values: BrandCategoryType) => {
-      console.log(values);
+      console.log(values, "values");
+
+      if (update?.id) {
+         updateBrandCategory(
+            { ...values, id: update.id },
+            {
+               onSuccess: () => {
+                  handleClose();
+               },
+            }
+         );
+      } else {
+         createBrandCategory(values, {
+            onSuccess: () => {
+               handleClose();
+            },
+         });
+      }
    };
 
    return (

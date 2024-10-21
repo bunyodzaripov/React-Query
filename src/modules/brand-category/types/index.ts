@@ -1,4 +1,5 @@
 export interface BrandCategoryType {
+   id?: number;
    name: string;
    brand_id: number;
 }
