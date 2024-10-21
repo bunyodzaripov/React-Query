@@ -1,24 +1,30 @@
 import axiosInstance from "@api";
 import { ParamsType } from "@types";
+import { BrandsType } from "../types";
 
 ////////////////////////////// GET BRANDS //////////////////////////////
 export async function getBrands(params: ParamsType) {
    return await axiosInstance.get("brand/search", { params });
 }
 
-// ////////////////////////////// CREATE CATEGORY //////////////////////////////
-// export const createCategory = async (data: CategoryType) => {
-//    const res = await axiosInstance.post("category/create", data);
-//    return res?.data;
-// };
+//////////////////////////////// GET BRANDS BY CATEGORY //////////////////////////////
+export async function getBrandsByCategory(id: number) {
+   return await axiosInstance.get(`brand/category/${id}`);
+}
 
-// ////////////////////////////// UPDATE CATEGORY //////////////////////////////
-// export const updateCategory = async (data: CategoryType) => {
-//    const { id } = data;
-//    delete (data as any).id;
-//    const res = await axiosInstance.patch(`category/update/${id}`, data);
-//    return res?.data;
-// };
+////////////////////////////// CREATE BRANDS //////////////////////////////
+export const createBrands = async (data: BrandsType) => {
+   const res = await axiosInstance.post("brand/create", data);
+   return res?.data;
+};
+
+////////////////////////////// UPDATE BRANDS //////////////////////////////
+export const updateBrands = async (data: BrandsType) => {
+   const { id } = data;
+   delete (data as any).id;
+   const res = await axiosInstance.patch(`brand/update/${id}`, data);
+   return res?.data;
+};
 
 ////////////////////////////// DELETE BRANDS //////////////////////////////
 export const deleteBrands = async (id: number) => {

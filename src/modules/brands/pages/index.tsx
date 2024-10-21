@@ -7,7 +7,7 @@ import { useDeleteBrands } from "../hooks/mutations";
 import { Popconfirm, Table, Search } from "@components";
 import { RecordType } from "../types";
 import { PaginationType } from "@types";
-// import Modal from "./modal";
+import Modal from "./modal";
 
 const index = () => {
    const [open, setOpen] = useState(false);
@@ -18,6 +18,7 @@ const index = () => {
       search: "",
    });
    const { search } = useLocation();
+   const { data } = useGetBrands(params);
 
    useEffect(() => {
       const params = new URLSearchParams(search);
@@ -31,8 +32,6 @@ const index = () => {
          limit: limit,
       }));
    }, [search]);
-
-   const { data } = useGetBrands(params);
 
    const { mutate: deleteBrands } = useDeleteBrands();
    const navigate = useNavigate();
@@ -118,7 +117,7 @@ const index = () => {
    ];
    return (
       <>
-         {/* <Modal open={open} handleClose={handleClose} update={update} /> */}
+         <Modal open={open} handleClose={handleClose} update={update} />
          <div className="flex justify-between mb-10">
             <Search
                placeholder="Search brands..."
