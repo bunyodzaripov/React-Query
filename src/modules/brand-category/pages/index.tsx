@@ -7,7 +7,8 @@ import { useDeleteBrandCategory } from "../hooks/mutations";
 import { Popconfirm, Table, Search } from "@components";
 import { RecordType } from "../types";
 import { PaginationType } from "@types";
-// import Modal from "./modal";
+import { useGetBrands } from "../../brands/hooks/queries";
+import Modal from "./modal";
 
 const index = () => {
    const [open, setOpen] = useState(false);
@@ -19,6 +20,7 @@ const index = () => {
    });
    const { search } = useLocation();
    const { data } = useGetBrandCategory(params);
+   const { data: brandsData } = useGetBrands({});
 
    useEffect(() => {
       const params = new URLSearchParams(search);
@@ -112,7 +114,12 @@ const index = () => {
    ];
    return (
       <>
-         {/* <Modal open={open} handleClose={handleClose} update={update} /> */}
+         <Modal
+            open={open}
+            handleClose={handleClose}
+            update={update}
+            brandsData={brandsData?.data?.data.brands || []}
+         />
          <div className="flex justify-between mb-10">
             <Search
                placeholder="Search brand category..."

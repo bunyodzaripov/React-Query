@@ -18,6 +18,7 @@ export interface ModalProps {
    setOpen?: (open: boolean) => void;
    handleClose: () => void;
    update?: any;
+   brandsData?: any;
 }
 
 export interface PaginationType {
