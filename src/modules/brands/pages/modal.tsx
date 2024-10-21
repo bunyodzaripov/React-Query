@@ -3,7 +3,7 @@ import { Button, Modal, Form, Input, Select } from "antd";
 import { ModalProps } from "@types";
 import { BrandsType } from "../types";
 import { useGetCategory } from "../../category/hooks/queries";
-import { useCreateBrands } from "../hooks/mutations";
+import { useCreateBrands, useUpdateBrands } from "../hooks/mutations";
 
 const Index = ({ open, handleClose, update }: ModalProps) => {
    const [form] = Form.useForm();
@@ -23,15 +23,13 @@ const Index = ({ open, handleClose, update }: ModalProps) => {
 
    const { data: categories } = useGetCategory({});
    const { mutate: createBrands } = useCreateBrands();
+   const { mutate: updateBrands } = useUpdateBrands();
 
    const handleChange = (e: any) => {
       let fileData = e.target.files[0];
       setFile(fileData);
    };
-
    const handleSubmit = (values: BrandsType) => {
-      console.log(values);
-
       const formData: any = new FormData();
       formData.append("name", values.name);
       formData.append("description", values.description);
@@ -41,7 +39,7 @@ const Index = ({ open, handleClose, update }: ModalProps) => {
       }
 
       if (update?.id) {
-         console.log(values);
+         updateBrands({ ...values, id: update.id });
       } else {
          createBrands(formData);
       }
