@@ -3,6 +3,7 @@ import { Button, Tooltip } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetBrands } from "../hooks/queries";
+import { useDeleteBrands } from "../hooks/mutations";
 import { Popconfirm, Table, Search } from "@components";
 import { RecordType } from "../types";
 import { PaginationType } from "@types";
@@ -33,7 +34,7 @@ const index = () => {
 
    const { data } = useGetBrands(params);
 
-   // const { mutate: deleteCategory } = useDeleteCategory();
+   const { mutate: deleteBrands } = useDeleteBrands();
    const navigate = useNavigate();
 
    const openModal = () => {
@@ -44,7 +45,7 @@ const index = () => {
       setUpdate({} as RecordType);
    };
    const deleteData = (id: number) => {
-      // deleteCategory(id);
+      deleteBrands(id);
    };
    const editData = (data: RecordType) => {
       setUpdate(data);

@@ -20,8 +20,8 @@ export async function getBrands(params: ParamsType) {
 //    return res?.data;
 // };
 
-// ////////////////////////////// DELETE CATEGORY //////////////////////////////
-// export const deleteCategory = async (id: number) => {
-//    const res = await axiosInstance.delete(`category/delete/${id}`);
-//    return res?.data;
-// };
+////////////////////////////// DELETE BRANDS //////////////////////////////
+export const deleteBrands = async (id: number) => {
+   const res = await axiosInstance.delete(`brand/delete/${id}`);
+   return res?.data;
+};
