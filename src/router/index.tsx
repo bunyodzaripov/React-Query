@@ -4,8 +4,16 @@ import {
    Route,
    RouterProvider,
 } from "react-router-dom";
+
 import App from "../App";
-import { SignIn, SignUp, Layout, Category, SubCategory } from "@modules";
+import {
+   SignIn,
+   SignUp,
+   Layout,
+   Category,
+   SubCategory,
+   Brands,
+} from "@modules";
 
 const Index = () => {
    const router = createBrowserRouter(
@@ -16,6 +24,7 @@ const Index = () => {
             <Route path="layout" element={<Layout />}>
                <Route path="category" element={<Category />} />
                <Route path="category/:id" element={<SubCategory />} />
+               <Route path="brands" element={<Brands />} />
             </Route>
          </Route>
       )
