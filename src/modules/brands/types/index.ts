@@ -3,6 +3,7 @@ export interface BrandsType {
    name: string;
    description: string;
    categoryId: number;
+   category_id?: number;
    file?: string | File;
 }
 
