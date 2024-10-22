@@ -14,6 +14,7 @@ import {
    SubCategory,
    Brands,
    BrandCategory,
+   Products,
 } from "@modules";
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
             <Route index element={<SignIn />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="layout" element={<Layout />}>
+               <Route index element={<Products />} />
                <Route path="category" element={<Category />} />
                <Route path="category/:id" element={<SubCategory />} />
                <Route path="brands" element={<Brands />} />

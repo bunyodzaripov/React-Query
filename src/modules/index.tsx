@@ -5,5 +5,15 @@ import Category from "./category/pages";
 import SubCategory from "./sub-category/pages";
 import Brands from "./brands/pages";
 import BrandCategory from "./brand-category/pages";
+import Products from "./products/pages";
 
-export { SignIn, SignUp, Layout, Category, SubCategory, Brands, BrandCategory };
+export {
+   SignIn,
+   SignUp,
+   Layout,
+   Category,
+   SubCategory,
+   Brands,
+   BrandCategory,
+   Products,
+};

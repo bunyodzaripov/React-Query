@@ -7,6 +7,11 @@ export async function getBrandCategory(params: ParamsType) {
    return await axiosInstance.get("brand-category/search", { params });
 }
 
+////////////////////////////// GET BRAND CATEGORY BY BRAND //////////////////////////////
+export async function getBrandCategoryByBrand(id: number) {
+   return await axiosInstance.get(`brand-category/brand/${id}`);
+}
+
 ////////////////////////////// CREATE BRAND CATEGORY //////////////////////////////
 export const createBrandCategory = async (data: BrandCategoryType) => {
    const res = await axiosInstance.post("brand-category/create", data);
