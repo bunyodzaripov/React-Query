@@ -1,6 +1,30 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteProduct } from "../services";
+import { deleteProduct, createProduct } from "../services";
 import { Notification } from "../../../utils/notification";
+
+///////////////////////// CREATE PRODUCT //////////////////////////////
+export function useCreateProduct() {
+   const queryClient = useQueryClient();
+   return useMutation({
+      mutationFn: (data: any) => createProduct(data),
+      onSuccess: (res) => {
+         Notification({
+            type: "success",
+            message: res?.message,
+         });
+      },
+      onSettled: async (_, error) => {
+         if (error) {
+            Notification({
+               type: "error",
+               message: error?.message,
+            });
+         } else {
+            await queryClient.invalidateQueries({ queryKey: ["products"] });
+         }
+      },
+   });
+}
 
 //////////////////////// DELETE PRODUCT //////////////////////////////
 export function useDeleteProduct() {

@@ -5,6 +5,7 @@ import { ModalProps } from "@types";
 import { useGetCategory } from "../../category/hooks/queries";
 import { useGetBrandsByCategory } from "../../brands/hooks/queries";
 import { useGetBrandCategoryByBrand } from "../../brand-category/hooks/queries";
+import { useCreateProduct } from "../hooks/mutations";
 const { Option } = Select;
 
 const Index = ({ open, handleClose, update }: ModalProps) => {
@@ -15,6 +16,7 @@ const Index = ({ open, handleClose, update }: ModalProps) => {
    const { data: categories } = useGetCategory({});
    const { data: brands } = useGetBrandsByCategory(categoryId || 0);
    const { data: brandCategories } = useGetBrandCategoryByBrand(brandId || 0);
+   const { mutate: createProduct } = useCreateProduct();
 
    useEffect(() => {
       if (update.id) {
@@ -33,7 +35,23 @@ const Index = ({ open, handleClose, update }: ModalProps) => {
       setCategoryData(categories?.data?.data?.categories);
    }, [form, categories]);
 
-   const handleSubmit = (values: any) => {};
+   const handleSubmit = (values: any) => {
+      const formData: any = new FormData();
+      formData.append("name", values.name);
+      formData.append("price", values.price);
+      formData.append("category_id", values.category_id);
+      formData.append("brand_id", values.brand_id);
+      formData.append("brand_category_id", values.brand_category_id);
+      if (values.file && values.file.file) {
+         formData.append("file", values.file.file);
+      }
+
+      createProduct(formData, {
+         onSuccess: () => {
+            handleClose();
+         },
+      });
+   };
 
    const changeCategory = (id: number) => {
       setCategoryId(id);
