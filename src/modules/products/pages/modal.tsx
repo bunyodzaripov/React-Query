@@ -5,7 +5,7 @@ import { ModalProps } from "@types";
 import { useGetCategory } from "../../category/hooks/queries";
 import { useGetBrandsByCategory } from "../../brands/hooks/queries";
 import { useGetBrandCategoryByBrand } from "../../brand-category/hooks/queries";
-import { useCreateProduct } from "../hooks/mutations";
+import { useCreateProduct, useUpdateProduct } from "../hooks/mutations";
 const { Option } = Select;
 
 const Index = ({ open, handleClose, update }: ModalProps) => {
@@ -17,6 +17,7 @@ const Index = ({ open, handleClose, update }: ModalProps) => {
    const { data: brands } = useGetBrandsByCategory(categoryId || 0);
    const { data: brandCategories } = useGetBrandCategoryByBrand(brandId || 0);
    const { mutate: createProduct } = useCreateProduct();
+   const { mutate: updateProduct } = useUpdateProduct();
 
    useEffect(() => {
       if (update.id) {
@@ -34,8 +35,17 @@ const Index = ({ open, handleClose, update }: ModalProps) => {
    useEffect(() => {
       setCategoryData(categories?.data?.data?.categories);
    }, [form, categories]);
+   console.log(update.id, "update.id");
 
    const handleSubmit = (values: any) => {
+      const editData: any = {
+         name: values.name,
+         price: parseInt(values.price),
+         category_id: parseInt(values.category_id),
+         brand_id: parseInt(values.brand_id),
+         brand_category_id: parseInt(values.brand_category_id),
+      };
+
       const formData: any = new FormData();
       formData.append("name", values.name);
       formData.append("price", values.price);
@@ -46,11 +56,22 @@ const Index = ({ open, handleClose, update }: ModalProps) => {
          formData.append("file", values.file.file);
       }
 
-      createProduct(formData, {
-         onSuccess: () => {
-            handleClose();
-         },
-      });
+      if (update?.id) {
+         updateProduct(
+            { ...editData, id: update.id },
+            {
+               onSuccess: () => {
+                  handleClose();
+               },
+            }
+         );
+      } else {
+         createProduct(formData, {
+            onSuccess: () => {
+               handleClose();
+            },
+         });
+      }
    };
 
    const changeCategory = (id: number) => {

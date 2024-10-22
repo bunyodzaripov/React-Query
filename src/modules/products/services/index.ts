@@ -13,12 +13,12 @@ export const createProduct = async (data: ParamsType) => {
 };
 
 ////////////////////////////////// UPDATE PRODUCT //////////////////////////////
-// export const updateProduct = async (data: ProductType) => {
-//   const { id } = data;
-//   delete data?.id;
-//   const response = await axiosInstance.patch(`product/update/${id}`, data);
-//   return response?.data;
-// };
+export const updateProduct = async (data: any) => {
+   const { id } = data;
+   delete data?.id;
+   const res = await axiosInstance.patch(`products/update/${id}`, data);
+   return res?.data;
+};
 
 ////////////////////////////// DELETE PRODUCT //////////////////////////////
 export async function deleteProduct(id: number) {
